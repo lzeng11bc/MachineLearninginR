@@ -1,0 +1,1366 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={CBA Assessment},
+            pdfauthor={Zeng Linghao},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{CBA Assessment}
+\author{Zeng Linghao}
+\date{October 15,2020}
+
+\begin{document}
+\maketitle
+
+\hypertarget{part-a-data-exploration-and-prepartion}{%
+\subsection{Part A: Data Exploration and
+Prepartion}\label{part-a-data-exploration-and-prepartion}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{There are a few obvious data errors in the data. Conduct data
+  exploration to identify the obvious data errors and correct the
+  errors. Explain and justify your corrections. {[}You will use your
+  corrected data in subsequent analysis.{]}}
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Read the data}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"~/Desktop/CBA/"}\NormalTok{)}
+\NormalTok{churn<-}\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{file=}\StringTok{"churn5.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Do a quick summary of the data set}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(churn)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Customer    Account.Length  International.Plan Voice.Mail.Plan   
+##  Min.   :   1   Min.   :  1.0   Length:2001        Length:2001       
+##  1st Qu.: 501   1st Qu.: 73.0   Class :character   Class :character  
+##  Median :1001   Median :101.0   Mode  :character   Mode  :character  
+##  Mean   :1001   Mean   :100.9                                        
+##  3rd Qu.:1501   3rd Qu.:127.0                                        
+##  Max.   :2001   Max.   :232.0                                        
+##                                                                      
+##  Voice.Mail.Messages  Day.Minutes      Day.Calls       Day.Charge   
+##  Min.   : 0.000      Min.   :  0.0   Min.   :  0.0   Min.   : 0.00  
+##  1st Qu.: 0.000      1st Qu.:144.6   1st Qu.: 87.0   1st Qu.:24.58  
+##  Median : 0.000      Median :180.2   Median :101.0   Median :30.63  
+##  Mean   : 7.696      Mean   :180.6   Mean   :100.3   Mean   :30.70  
+##  3rd Qu.:17.000      3rd Qu.:216.9   3rd Qu.:114.0   3rd Qu.:36.87  
+##  Max.   :51.000      Max.   :346.8   Max.   :158.0   Max.   :58.96  
+##                                      NA's   :1                      
+##  Evening.Minutes Evening.Calls    Evening.Charge  Night.Minutes  
+##  Min.   :  0.0   Min.   :  0.00   Min.   : 0.00   Min.   : 43.7  
+##  1st Qu.:167.2   1st Qu.: 87.00   1st Qu.:14.21   1st Qu.:167.6  
+##  Median :202.2   Median :100.00   Median :17.19   Median :200.9  
+##  Mean   :201.6   Mean   : 99.84   Mean   :17.13   Mean   :201.2  
+##  3rd Qu.:236.0   3rd Qu.:113.00   3rd Qu.:20.06   3rd Qu.:236.6  
+##  Max.   :350.5   Max.   :168.00   Max.   :29.79   Max.   :395.0  
+##                                                                  
+##   Night.Calls     Night.Charge    International.Minutes International.Calls
+##  Min.   : 33.0   Min.   : 1.970   Min.   : 0.00         Min.   : 0.000     
+##  1st Qu.: 87.0   1st Qu.: 7.540   1st Qu.: 8.40         1st Qu.: 3.000     
+##  Median :100.0   Median : 9.040   Median :10.30         Median : 4.000     
+##  Mean   :100.2   Mean   : 9.055   Mean   :10.22         Mean   : 4.496     
+##  3rd Qu.:113.0   3rd Qu.:10.650   3rd Qu.:12.00         3rd Qu.: 6.000     
+##  Max.   :175.0   Max.   :17.770   Max.   :20.00         Max.   :17.000     
+##                                                                            
+##  International.Charge Customer.Service.Calls    Churn          
+##  Min.   :  0.00       Min.   :0.000          Length:2001       
+##  1st Qu.:  2.27       1st Qu.:1.000          Class :character  
+##  Median :  2.78       Median :1.000          Mode  :character  
+##  Mean   :  2.91       Mean   :1.578                            
+##  3rd Qu.:  3.27       3rd Qu.:2.000                            
+##  Max.   :301.00       Max.   :9.000                            
+## 
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Check all String data to see if it is binary}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Internation Plan}
+\KeywordTok{sum}\NormalTok{(churn}\OperatorTok{$}\NormalTok{International.Plan}\OperatorTok{==}\StringTok{"Yes"} \OperatorTok{|}\StringTok{ }\NormalTok{churn}\OperatorTok{$}\NormalTok{International.Plan}\OperatorTok{==}\StringTok{"No"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2001
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#voice mail plan}
+\KeywordTok{sum}\NormalTok{(churn}\OperatorTok{$}\NormalTok{Voice.Mail.Plan}\OperatorTok{==}\StringTok{"Yes"} \OperatorTok{|}\StringTok{ }\NormalTok{churn}\OperatorTok{$}\NormalTok{Voice.Mail.Plan}\OperatorTok{==}\StringTok{"No"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1999
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#churn mail plan}
+\KeywordTok{sum}\NormalTok{(churn}\OperatorTok{$}\NormalTok{Churn}\OperatorTok{==}\StringTok{"Yes"} \OperatorTok{|}\StringTok{ }\NormalTok{churn}\OperatorTok{$}\NormalTok{Churn}\OperatorTok{==}\StringTok{"No"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2001
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  From the above result, it appears that Voice.Mail.Plan contains
+  missing data
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{churn[(churn}\OperatorTok{$}\NormalTok{Voice.Mail.Plan}\OperatorTok{!=}\StringTok{"Yes"} \OperatorTok{&}\StringTok{ }\NormalTok{churn}\OperatorTok{$}\NormalTok{Voice.Mail.Plan}\OperatorTok{!=}\StringTok{"No"}\NormalTok{),]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Customer Account.Length International.Plan Voice.Mail.Plan
+## 1269     1269             58                 No               N
+## 2001     2001            108                Yes                
+##      Voice.Mail.Messages Day.Minutes Day.Calls Day.Charge Evening.Minutes
+## 1269                   0       210.1       126      35.72           248.9
+## 2001                   0       201.0        94      41.30           170.0
+##      Evening.Calls Evening.Charge Night.Minutes Night.Calls Night.Charge
+## 1269           108          21.16         158.6          88         7.14
+## 2001           115          14.50         284.0         102        13.20
+##      International.Minutes International.Calls International.Charge
+## 1269                  14.4                   2                 3.89
+## 2001                  11.1                   4                 2.90
+##      Customer.Service.Calls Churn
+## 1269                      4    No
+## 2001                      1   Yes
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{For row 1269, it appears that ``N'' is used instead of ``No''
+  for Voice.Mail.Plan for row 2001, it appears that there is a missing
+  values, we will aplply NA instead}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{churn[}\DecValTok{1269}\NormalTok{,}\StringTok{"Voice.Mail.Plan"}\NormalTok{]=}\StringTok{'No'}
+\NormalTok{churn[}\DecValTok{2001}\NormalTok{,}\StringTok{"Voice.Mail.Plan"}\NormalTok{]=}\OtherTok{NA}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Let's Turn our attention to the numerical data. First, let's
+  check if all the numerical attributes contain only numerical values}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{churn.num<-churn[,}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{11}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{13}\NormalTok{,}\DecValTok{14}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{16}\NormalTok{,}\DecValTok{17}\NormalTok{,}\DecValTok{18}\NormalTok{)]}
+\CommentTok{#check if all numeric coulumns contain only numeric numbers}
+\NormalTok{col.names<-}\KeywordTok{names}\NormalTok{(churn.num)}
+\NormalTok{columns<-}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{16}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{16}\NormalTok{)\{}
+\NormalTok{  columns[i]=}\KeywordTok{is.numeric}\NormalTok{(churn.num[,col.names[i]])}
+  \KeywordTok{print}\NormalTok{(col.names[i])}
+  \KeywordTok{print}\NormalTok{(columns[i])}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Customer"
+## [1] 1
+## [1] "Account.Length"
+## [1] 1
+## [1] "Voice.Mail.Messages"
+## [1] 1
+## [1] "Day.Minutes"
+## [1] 1
+## [1] "Day.Calls"
+## [1] 1
+## [1] "Day.Charge"
+## [1] 1
+## [1] "Evening.Minutes"
+## [1] 1
+## [1] "Evening.Calls"
+## [1] 1
+## [1] "Evening.Charge"
+## [1] 1
+## [1] "Night.Minutes"
+## [1] 1
+## [1] "Night.Calls"
+## [1] 1
+## [1] "Night.Charge"
+## [1] 1
+## [1] "International.Minutes"
+## [1] 1
+## [1] "International.Calls"
+## [1] 1
+## [1] "International.Charge"
+## [1] 1
+## [1] "Customer.Service.Calls"
+## [1] 1
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{In order to identify outliers, we can plot a scatter matrix and
+  do a summary table}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(churn.num)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{cba_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(churn.num)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Customer    Account.Length  Voice.Mail.Messages  Day.Minutes   
+##  Min.   :   1   Min.   :  1.0   Min.   : 0.000      Min.   :  0.0  
+##  1st Qu.: 501   1st Qu.: 73.0   1st Qu.: 0.000      1st Qu.:144.6  
+##  Median :1001   Median :101.0   Median : 0.000      Median :180.2  
+##  Mean   :1001   Mean   :100.9   Mean   : 7.696      Mean   :180.6  
+##  3rd Qu.:1501   3rd Qu.:127.0   3rd Qu.:17.000      3rd Qu.:216.9  
+##  Max.   :2001   Max.   :232.0   Max.   :51.000      Max.   :346.8  
+##                                                                    
+##    Day.Calls       Day.Charge    Evening.Minutes Evening.Calls   
+##  Min.   :  0.0   Min.   : 0.00   Min.   :  0.0   Min.   :  0.00  
+##  1st Qu.: 87.0   1st Qu.:24.58   1st Qu.:167.2   1st Qu.: 87.00  
+##  Median :101.0   Median :30.63   Median :202.2   Median :100.00  
+##  Mean   :100.3   Mean   :30.70   Mean   :201.6   Mean   : 99.84  
+##  3rd Qu.:114.0   3rd Qu.:36.87   3rd Qu.:236.0   3rd Qu.:113.00  
+##  Max.   :158.0   Max.   :58.96   Max.   :350.5   Max.   :168.00  
+##  NA's   :1                                                       
+##  Evening.Charge  Night.Minutes    Night.Calls     Night.Charge   
+##  Min.   : 0.00   Min.   : 43.7   Min.   : 33.0   Min.   : 1.970  
+##  1st Qu.:14.21   1st Qu.:167.6   1st Qu.: 87.0   1st Qu.: 7.540  
+##  Median :17.19   Median :200.9   Median :100.0   Median : 9.040  
+##  Mean   :17.13   Mean   :201.2   Mean   :100.2   Mean   : 9.055  
+##  3rd Qu.:20.06   3rd Qu.:236.6   3rd Qu.:113.0   3rd Qu.:10.650  
+##  Max.   :29.79   Max.   :395.0   Max.   :175.0   Max.   :17.770  
+##                                                                  
+##  International.Minutes International.Calls International.Charge
+##  Min.   : 0.00         Min.   : 0.000      Min.   :  0.00      
+##  1st Qu.: 8.40         1st Qu.: 3.000      1st Qu.:  2.27      
+##  Median :10.30         Median : 4.000      Median :  2.78      
+##  Mean   :10.22         Mean   : 4.496      Mean   :  2.91      
+##  3rd Qu.:12.00         3rd Qu.: 6.000      3rd Qu.:  3.27      
+##  Max.   :20.00         Max.   :17.000      Max.   :301.00      
+##                                                                
+##  Customer.Service.Calls
+##  Min.   :0.000         
+##  1st Qu.:1.000         
+##  Median :1.000         
+##  Mean   :1.578         
+##  3rd Qu.:2.000         
+##  Max.   :9.000         
+## 
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{From the scatter matrix, there is a significant outlier in
+  international charge}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(churn.num}\OperatorTok{$}\NormalTok{International.Charge}\OperatorTok{~}\NormalTok{churn.num}\OperatorTok{$}\NormalTok{Customer)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{cba_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(churn.num}\OperatorTok{$}\NormalTok{International.Charge)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    0.00    2.27    2.78    2.91    3.27  301.00
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{We can apply the NA value to the outlier}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{churn[churn[,}\StringTok{"International.Charge"}\NormalTok{]}\OperatorTok{==}\DecValTok{301}\NormalTok{,]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Customer Account.Length International.Plan Voice.Mail.Plan
+## 65       65             41                 No              No
+##    Voice.Mail.Messages Day.Minutes Day.Calls Day.Charge Evening.Minutes
+## 65                   0       159.3        66      27.08           125.9
+##    Evening.Calls Evening.Charge Night.Minutes Night.Calls Night.Charge
+## 65            75           10.7         261.9          76        11.79
+##    International.Minutes International.Calls International.Charge
+## 65                  11.1                   5                  301
+##    Customer.Service.Calls Churn
+## 65                      1    No
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{churn[}\DecValTok{65}\NormalTok{,}\StringTok{"International.Charge"}\NormalTok{]=}\OtherTok{NA}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Since customerID is not important, we omit that column}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{churn<-churn[,}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Finally, factor the string attributes}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{churn[,}\StringTok{"Voice.Mail.Plan"}\NormalTok{]=}\KeywordTok{as.factor}\NormalTok{(churn[,}\StringTok{"Voice.Mail.Plan"}\NormalTok{])}
+\NormalTok{churn[,}\StringTok{"International.Plan"}\NormalTok{]=}\KeywordTok{as.factor}\NormalTok{(churn[,}\StringTok{"International.Plan"}\NormalTok{])}
+\NormalTok{churn[,}\StringTok{"Churn"}\NormalTok{]=}\KeywordTok{as.factor}\NormalTok{(churn[,}\StringTok{"Churn"}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{Create a summary table that displays the important
+  information. Explain the findings.}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(churn)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Account.Length  International.Plan Voice.Mail.Plan Voice.Mail.Messages
+##  Min.   :  1.0   No :1809           No  :1473       Min.   : 0.000     
+##  1st Qu.: 73.0   Yes: 192           Yes : 527       1st Qu.: 0.000     
+##  Median :101.0                      NA's:   1       Median : 0.000     
+##  Mean   :100.9                                      Mean   : 7.696     
+##  3rd Qu.:127.0                                      3rd Qu.:17.000     
+##  Max.   :232.0                                      Max.   :51.000     
+##                                                                        
+##   Day.Minutes      Day.Calls       Day.Charge    Evening.Minutes
+##  Min.   :  0.0   Min.   :  0.0   Min.   : 0.00   Min.   :  0.0  
+##  1st Qu.:144.6   1st Qu.: 87.0   1st Qu.:24.58   1st Qu.:167.2  
+##  Median :180.2   Median :101.0   Median :30.63   Median :202.2  
+##  Mean   :180.6   Mean   :100.3   Mean   :30.70   Mean   :201.6  
+##  3rd Qu.:216.9   3rd Qu.:114.0   3rd Qu.:36.87   3rd Qu.:236.0  
+##  Max.   :346.8   Max.   :158.0   Max.   :58.96   Max.   :350.5  
+##                  NA's   :1                                      
+##  Evening.Calls    Evening.Charge  Night.Minutes    Night.Calls   
+##  Min.   :  0.00   Min.   : 0.00   Min.   : 43.7   Min.   : 33.0  
+##  1st Qu.: 87.00   1st Qu.:14.21   1st Qu.:167.6   1st Qu.: 87.0  
+##  Median :100.00   Median :17.19   Median :200.9   Median :100.0  
+##  Mean   : 99.84   Mean   :17.13   Mean   :201.2   Mean   :100.2  
+##  3rd Qu.:113.00   3rd Qu.:20.06   3rd Qu.:236.6   3rd Qu.:113.0  
+##  Max.   :168.00   Max.   :29.79   Max.   :395.0   Max.   :175.0  
+##                                                                  
+##   Night.Charge    International.Minutes International.Calls
+##  Min.   : 1.970   Min.   : 0.00         Min.   : 0.000     
+##  1st Qu.: 7.540   1st Qu.: 8.40         1st Qu.: 3.000     
+##  Median : 9.040   Median :10.30         Median : 4.000     
+##  Mean   : 9.055   Mean   :10.22         Mean   : 4.496     
+##  3rd Qu.:10.650   3rd Qu.:12.00         3rd Qu.: 6.000     
+##  Max.   :17.770   Max.   :20.00         Max.   :17.000     
+##                                                            
+##  International.Charge Customer.Service.Calls Churn     
+##  Min.   :0.000        Min.   :0.000          No :1719  
+##  1st Qu.:2.270        1st Qu.:1.000          Yes: 282  
+##  Median :2.780        Median :1.000                    
+##  Mean   :2.761        Mean   :1.578                    
+##  3rd Qu.:3.248        3rd Qu.:2.000                    
+##  Max.   :5.400        Max.   :9.000                    
+##  NA's   :1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(churn[churn[,}\StringTok{"Churn"}\NormalTok{]}\OperatorTok{==}\StringTok{"Yes"}\NormalTok{,])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Account.Length  International.Plan Voice.Mail.Plan Voice.Mail.Messages
+##  Min.   :  1.0   No :205            No  :239        Min.   : 0.000     
+##  1st Qu.: 77.0   Yes: 77            Yes : 42        1st Qu.: 0.000     
+##  Median :104.5                      NA's:  1        Median : 0.000     
+##  Mean   :102.5                                      Mean   : 4.649     
+##  3rd Qu.:127.8                                      3rd Qu.: 0.000     
+##  Max.   :225.0                                      Max.   :45.000     
+##   Day.Minutes      Day.Calls       Day.Charge    Evening.Minutes
+##  Min.   : 46.5   Min.   : 42.0   Min.   : 7.91   Min.   : 75.3  
+##  1st Qu.:155.0   1st Qu.: 89.0   1st Qu.:26.36   1st Qu.:176.8  
+##  Median :225.0   Median :104.0   Median :38.27   Median :210.6  
+##  Mean   :211.9   Mean   :102.2   Mean   :36.06   Mean   :212.0  
+##  3rd Qu.:267.5   3rd Qu.:118.0   3rd Qu.:45.48   3rd Qu.:249.2  
+##  Max.   :346.8   Max.   :156.0   Max.   :58.96   Max.   :350.5  
+##  Evening.Calls   Evening.Charge  Night.Minutes    Night.Calls   
+##  Min.   : 48.0   Min.   : 6.40   Min.   : 47.4   Min.   : 49.0  
+##  1st Qu.: 88.0   1st Qu.:15.03   1st Qu.:169.6   1st Qu.: 84.0  
+##  Median :101.5   Median :17.89   Median :205.8   Median :100.5  
+##  Mean   :100.4   Mean   :18.02   Mean   :204.8   Mean   :100.2  
+##  3rd Qu.:114.0   3rd Qu.:21.18   3rd Qu.:239.6   3rd Qu.:115.0  
+##  Max.   :168.0   Max.   :29.79   Max.   :332.7   Max.   :158.0  
+##   Night.Charge    International.Minutes International.Calls
+##  Min.   : 2.130   Min.   : 2.00         Min.   : 1.000     
+##  1st Qu.: 7.633   1st Qu.: 8.80         1st Qu.: 2.000     
+##  Median : 9.260   Median :10.50         Median : 4.000     
+##  Mean   : 9.219   Mean   :10.56         Mean   : 4.174     
+##  3rd Qu.:10.780   3rd Qu.:12.40         3rd Qu.: 5.000     
+##  Max.   :14.970   Max.   :20.00         Max.   :15.000     
+##  International.Charge Customer.Service.Calls Churn    
+##  Min.   :0.54         Min.   :0.000          No :  0  
+##  1st Qu.:2.38         1st Qu.:1.000          Yes:282  
+##  Median :2.84         Median :2.000                   
+##  Mean   :2.85         Mean   :2.259                   
+##  3rd Qu.:3.35         3rd Qu.:4.000                   
+##  Max.   :5.40         Max.   :9.000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(churn[churn[,}\StringTok{"Churn"}\NormalTok{]}\OperatorTok{==}\StringTok{"No"}\NormalTok{,])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Account.Length  International.Plan Voice.Mail.Plan Voice.Mail.Messages
+##  Min.   :  1.0   No :1604           No :1234        Min.   : 0.000     
+##  1st Qu.: 72.0   Yes: 115           Yes: 485        1st Qu.: 0.000     
+##  Median :101.0                                      Median : 0.000     
+##  Mean   :100.6                                      Mean   : 8.196     
+##  3rd Qu.:127.0                                      3rd Qu.:20.000     
+##  Max.   :232.0                                      Max.   :51.000     
+##                                                                        
+##   Day.Minutes      Day.Calls        Day.Charge    Evening.Minutes
+##  Min.   :  0.0   Min.   :  0.00   Min.   : 0.00   Min.   :  0.0  
+##  1st Qu.:143.7   1st Qu.: 87.00   1st Qu.:24.42   1st Qu.:165.2  
+##  Median :177.2   Median :100.00   Median :30.12   Median :200.2  
+##  Mean   :175.4   Mean   : 99.98   Mean   :29.82   Mean   :199.9  
+##  3rd Qu.:209.9   3rd Qu.:114.00   3rd Qu.:35.69   3rd Qu.:233.9  
+##  Max.   :313.8   Max.   :158.00   Max.   :53.35   Max.   :332.1  
+##                  NA's   :1                                       
+##  Evening.Calls    Evening.Charge  Night.Minutes    Night.Calls   
+##  Min.   :  0.00   Min.   : 0.00   Min.   : 43.7   Min.   : 33.0  
+##  1st Qu.: 86.50   1st Qu.:14.04   1st Qu.:167.3   1st Qu.: 87.0  
+##  Median :100.00   Median :17.02   Median :200.0   Median :100.0  
+##  Mean   : 99.74   Mean   :16.99   Mean   :200.6   Mean   :100.2  
+##  3rd Qu.:113.00   3rd Qu.:19.89   3rd Qu.:236.2   3rd Qu.:113.0  
+##  Max.   :164.00   Max.   :28.23   Max.   :395.0   Max.   :175.0  
+##                                                                  
+##   Night.Charge    International.Minutes International.Calls
+##  Min.   : 1.970   Min.   : 0.00         Min.   : 0.000     
+##  1st Qu.: 7.530   1st Qu.: 8.40         1st Qu.: 3.000     
+##  Median : 9.000   Median :10.20         Median : 4.000     
+##  Mean   : 9.028   Mean   :10.17         Mean   : 4.549     
+##  3rd Qu.:10.630   3rd Qu.:12.00         3rd Qu.: 6.000     
+##  Max.   :17.770   Max.   :18.90         Max.   :17.000     
+##                                                            
+##  International.Charge Customer.Service.Calls Churn     
+##  Min.   :0.000        Min.   :0.000          No :1719  
+##  1st Qu.:2.270        1st Qu.:1.000          Yes:   0  
+##  Median :2.750        Median :1.000                    
+##  Mean   :2.746        Mean   :1.466                    
+##  3rd Qu.:3.240        3rd Qu.:2.000                    
+##  Max.   :5.100        Max.   :8.000                    
+##  NA's   :1
+\end{verbatim}
+
+\hypertarget{part-b-models-and-model-based-insight}{%
+\subsection{Part B: Models and Model Based
+Insight}\label{part-b-models-and-model-based-insight}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \textbf{Execute CART and another model of your choice taught in this
+  module. Which model perform better? Explain.}
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Before Executing the model, we need to first do a train-test
+  split}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{train<-}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(churn),}\KeywordTok{nrow}\NormalTok{(churn)}\OperatorTok{*}\FloatTok{0.8}\NormalTok{)}
+\NormalTok{test<-}\OperatorTok{-}\NormalTok{train}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Use the previous generated train, and test row numbers to apply
+  to the total data set}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{churn.train<-churn[train,]}
+\NormalTok{churn.test<-churn[test,]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{We need to balance the response variables}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(churn.train}\OperatorTok{$}\NormalTok{Churn}\OperatorTok{==}\StringTok{"Yes"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 232
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(churn.train}\OperatorTok{$}\NormalTok{Churn}\OperatorTok{==}\StringTok{"No"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1368
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{From the above code, we see the Yes and No are highly
+  imbalanced. We need to balance the training set by duplicating the Yes
+  so the ratio is 0.5}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{churn.train.yes<-churn.train[churn.train[,}\StringTok{"Churn"}\NormalTok{]}\OperatorTok{==}\StringTok{"Yes"}\NormalTok{,]}
+\NormalTok{churn.train.no<-churn.train[churn.train[,}\StringTok{"Churn"}\NormalTok{]}\OperatorTok{==}\StringTok{"No"}\NormalTok{,]}
+\NormalTok{chosen<-}\KeywordTok{sample}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(churn.train.yes)),}\DataTypeTok{size =} \KeywordTok{nrow}\NormalTok{(churn.train.no),}\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{churn.train.balanced<-}\KeywordTok{rbind}\NormalTok{(churn.train.yes[chosen,],churn.train.no)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{rpart-model}{%
+\subsubsection{RPART Model}\label{rpart-model}}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{First, use the train set to fid the model}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(rpart)}
+\NormalTok{tree.fit<-}\KeywordTok{rpart}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ Churn}\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\NormalTok{churn.train.balanced,}\DataTypeTok{method =} \StringTok{"class"}\NormalTok{,}\DataTypeTok{control =} \KeywordTok{rpart.control}\NormalTok{(}\DataTypeTok{minsplit =} \DecValTok{2}\NormalTok{,}\DataTypeTok{cp=}\DecValTok{0}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Plot the resulting fit}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(rpart.plot)}
+\KeywordTok{rpart.plot}\NormalTok{(tree.fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: labs do not fit even at cex 0.15, there may be some overplotting
+\end{verbatim}
+
+\includegraphics{cba_files/figure-latex/unnamed-chunk-18-1.pdf} *
+\emph{Plot the cp against the cross validated error and also use the cp
+table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plotcp}\NormalTok{(tree.fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{cba_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{printcp}\NormalTok{(tree.fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Classification tree:
+## rpart(formula = Churn ~ ., data = churn.train.balanced, method = "class", 
+##     control = rpart.control(minsplit = 2, cp = 0))
+## 
+## Variables actually used in tree construction:
+##  [1] Account.Length         Customer.Service.Calls Day.Calls             
+##  [4] Day.Minutes            Evening.Calls          Evening.Minutes       
+##  [7] International.Calls    International.Minutes  International.Plan    
+## [10] Night.Calls            Night.Minutes          Voice.Mail.Messages   
+## [13] Voice.Mail.Plan       
+## 
+## Root node error: 1368/2736 = 0.5
+## 
+## n= 2736 
+## 
+##            CP nsplit rel error   xerror      xstd
+## 1  0.39619883      0  1.000000 1.043860 0.0190996
+## 2  0.20102339      1  0.603801 0.603801 0.0175535
+## 3  0.08552632      2  0.402778 0.402778 0.0153341
+## 4  0.02777778      3  0.317251 0.317251 0.0139686
+## 5  0.02156433      4  0.289474 0.296053 0.0135786
+## 6  0.01827485      6  0.246345 0.247807 0.0125977
+## 7  0.01242690      7  0.228070 0.229532 0.0121873
+## 8  0.00840643      9  0.203216 0.226608 0.0121194
+## 9  0.00694444     11  0.186404 0.199561 0.0114596
+## 10 0.00657895     13  0.172515 0.187865 0.0111548
+## 11 0.00511696     15  0.159357 0.182749 0.0110173
+## 12 0.00402047     19  0.138889 0.164474 0.0105044
+## 13 0.00365497     21  0.130848 0.147661 0.0099985
+## 14 0.00292398     23  0.123538 0.136696 0.0096485
+## 15 0.00277778     24  0.120614 0.116228 0.0089456
+## 16 0.00255848     35  0.077485 0.114766 0.0088927
+## 17 0.00243665     37  0.072368 0.114035 0.0088660
+## 18 0.00219298     41  0.060673 0.099415 0.0083102
+## 19 0.00182749     49  0.043129 0.093567 0.0080745
+## 20 0.00146199     55  0.032164 0.089912 0.0079228
+## 21 0.00109649     64  0.019006 0.069444 0.0070001
+## 22 0.00073099     66  0.016813 0.063596 0.0067090
+## 23 0.00036550     85  0.002924 0.055556 0.0062835
+## 24 0.00000000     93  0.000000 0.052632 0.0061205
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{From the cp table and the grap, we choose a cp value in the
+  0.00054785 to 0.00045 range}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tree.prune<-}\KeywordTok{prune}\NormalTok{(tree.fit,}\DataTypeTok{cp=}\FloatTok{0.00054}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Get the cp table}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{printcp}\NormalTok{(tree.prune)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Classification tree:
+## rpart(formula = Churn ~ ., data = churn.train.balanced, method = "class", 
+##     control = rpart.control(minsplit = 2, cp = 0))
+## 
+## Variables actually used in tree construction:
+##  [1] Account.Length         Customer.Service.Calls Day.Calls             
+##  [4] Day.Minutes            Evening.Calls          Evening.Minutes       
+##  [7] International.Calls    International.Minutes  International.Plan    
+## [10] Night.Calls            Night.Minutes          Voice.Mail.Messages   
+## [13] Voice.Mail.Plan       
+## 
+## Root node error: 1368/2736 = 0.5
+## 
+## n= 2736 
+## 
+##            CP nsplit rel error   xerror      xstd
+## 1  0.39619883      0  1.000000 1.043860 0.0190996
+## 2  0.20102339      1  0.603801 0.603801 0.0175535
+## 3  0.08552632      2  0.402778 0.402778 0.0153341
+## 4  0.02777778      3  0.317251 0.317251 0.0139686
+## 5  0.02156433      4  0.289474 0.296053 0.0135786
+## 6  0.01827485      6  0.246345 0.247807 0.0125977
+## 7  0.01242690      7  0.228070 0.229532 0.0121873
+## 8  0.00840643      9  0.203216 0.226608 0.0121194
+## 9  0.00694444     11  0.186404 0.199561 0.0114596
+## 10 0.00657895     13  0.172515 0.187865 0.0111548
+## 11 0.00511696     15  0.159357 0.182749 0.0110173
+## 12 0.00402047     19  0.138889 0.164474 0.0105044
+## 13 0.00365497     21  0.130848 0.147661 0.0099985
+## 14 0.00292398     23  0.123538 0.136696 0.0096485
+## 15 0.00277778     24  0.120614 0.116228 0.0089456
+## 16 0.00255848     35  0.077485 0.114766 0.0088927
+## 17 0.00243665     37  0.072368 0.114035 0.0088660
+## 18 0.00219298     41  0.060673 0.099415 0.0083102
+## 19 0.00182749     49  0.043129 0.093567 0.0080745
+## 20 0.00146199     55  0.032164 0.089912 0.0079228
+## 21 0.00109649     64  0.019006 0.069444 0.0070001
+## 22 0.00073099     66  0.016813 0.063596 0.0067090
+## 23 0.00054000     85  0.002924 0.055556 0.0062835
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Plot the resulting tree}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rpart.plot}\NormalTok{(tree.prune)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: labs do not fit even at cex 0.15, there may be some overplotting
+\end{verbatim}
+
+\includegraphics{cba_files/figure-latex/unnamed-chunk-23-1.pdf} *
+\emph{Do a confusion matrix on the test set}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(caret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: lattice
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: ggplot2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred<-}\KeywordTok{predict}\NormalTok{(tree.prune,}\DataTypeTok{newdata =}\NormalTok{ churn.test,}\DataTypeTok{type=}\StringTok{"class"}\NormalTok{)}
+\NormalTok{confusion.rpart<-}\KeywordTok{confusionMatrix}\NormalTok{(pred,churn.test}\OperatorTok{$}\NormalTok{Churn)}
+\NormalTok{confusion.rpart}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  No Yes
+##        No  335  14
+##        Yes  16  36
+##                                          
+##                Accuracy : 0.9252         
+##                  95% CI : (0.8949, 0.949)
+##     No Information Rate : 0.8753         
+##     P-Value [Acc > NIR] : 0.0008822      
+##                                          
+##                   Kappa : 0.663          
+##                                          
+##  Mcnemar's Test P-Value : 0.8551321      
+##                                          
+##             Sensitivity : 0.9544         
+##             Specificity : 0.7200         
+##          Pos Pred Value : 0.9599         
+##          Neg Pred Value : 0.6923         
+##              Prevalence : 0.8753         
+##          Detection Rate : 0.8354         
+##    Detection Prevalence : 0.8703         
+##       Balanced Accuracy : 0.8372         
+##                                          
+##        'Positive' Class : No             
+## 
+\end{verbatim}
+
+\hypertarget{logistic-regression}{%
+\subsubsection{Logistic Regression}\label{logistic-regression}}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Fit the logistic regression model}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glm.fit<-}\KeywordTok{glm}\NormalTok{(Churn}\OperatorTok{~}\NormalTok{Account.Length}\OperatorTok{+}\NormalTok{International.Plan}\OperatorTok{+}\NormalTok{Voice.Mail.Plan}\OperatorTok{+}\NormalTok{Day.Minutes}\OperatorTok{+}\NormalTok{Day.Calls}\OperatorTok{+}\NormalTok{Evening.Calls}\OperatorTok{+}\NormalTok{Evening.Charge}\OperatorTok{+}\NormalTok{Night.Minutes}\OperatorTok{+}\NormalTok{Night.Calls}\OperatorTok{+}\NormalTok{International.Minutes}\OperatorTok{+}\NormalTok{International.Calls}\OperatorTok{+}\NormalTok{Customer.Service.Calls,}\DataTypeTok{data =}\NormalTok{ churn.train.balanced,}\DataTypeTok{family =}\NormalTok{ binomial)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{See the result summary}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(glm.fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = Churn ~ Account.Length + International.Plan + Voice.Mail.Plan + 
+##     Day.Minutes + Day.Calls + Evening.Calls + Evening.Charge + 
+##     Night.Minutes + Night.Calls + International.Minutes + International.Calls + 
+##     Customer.Service.Calls, family = binomial, data = churn.train.balanced)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.9079  -0.7554   0.1089   0.8470   2.4944  
+## 
+## Coefficients:
+##                          Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)            -7.2905743  0.5807884 -12.553  < 2e-16 ***
+## Account.Length          0.0010785  0.0011700   0.922 0.356643    
+## International.PlanYes   2.5825590  0.1587093  16.272  < 2e-16 ***
+## Voice.Mail.PlanYes     -0.9605876  0.1213572  -7.915 2.47e-15 ***
+## Day.Minutes             0.0183217  0.0009396  19.500  < 2e-16 ***
+## Day.Calls               0.0083948  0.0022777   3.686 0.000228 ***
+## Evening.Calls           0.0013971  0.0023253   0.601 0.547973    
+## Evening.Charge          0.0646626  0.0118900   5.438 5.38e-08 ***
+## Night.Minutes           0.0016916  0.0009890   1.710 0.087208 .  
+## Night.Calls            -0.0046730  0.0023925  -1.953 0.050799 .  
+## International.Minutes   0.0311205  0.0175630   1.772 0.076405 .  
+## International.Calls    -0.0464816  0.0201533  -2.306 0.021088 *  
+## Customer.Service.Calls  0.6954205  0.0368197  18.887  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 3791.5  on 2734  degrees of freedom
+## Residual deviance: 2662.0  on 2722  degrees of freedom
+##   (1 observation deleted due to missingness)
+## AIC: 2688
+## 
+## Number of Fisher Scoring iterations: 5
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Use VIF() from the car pacakge to detec multicolineairty, and
+  leave out the variables one by one until the VIF scores for all
+  variables are low}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(car)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: carData
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{vif}\NormalTok{(glm.fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Account.Length     International.Plan        Voice.Mail.Plan 
+##               1.017745               1.205275               1.051220 
+##            Day.Minutes              Day.Calls          Evening.Calls 
+##               1.310165               1.035094               1.007826 
+##         Evening.Charge          Night.Minutes            Night.Calls 
+##               1.089013               1.024427               1.021008 
+##  International.Minutes    International.Calls Customer.Service.Calls 
+##               1.024366               1.023149               1.409788
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  **Plot the diagonsitic plot*
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(glm.fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{cba_files/figure-latex/unnamed-chunk-28-1.pdf}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Use the model to make prediction on a test set. And make a
+  confusion matrix from the prediction.}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(caret)}
+\NormalTok{glm.probs=}\KeywordTok{predict}\NormalTok{(glm.fit,churn.test,}\DataTypeTok{type=}\StringTok{"response"}\NormalTok{)}
+\NormalTok{glm.pred=}\KeywordTok{rep}\NormalTok{(}\StringTok{"No"}\NormalTok{,}\KeywordTok{nrow}\NormalTok{(churn.test))}
+\NormalTok{glm.pred[glm.probs}\OperatorTok{>}\NormalTok{.}\DecValTok{5}\NormalTok{]=}\StringTok{"Yes"}
+\NormalTok{confusion.log<-}\KeywordTok{confusionMatrix}\NormalTok{(}\KeywordTok{as.factor}\NormalTok{(glm.pred),churn.test}\OperatorTok{$}\NormalTok{Churn)}
+\NormalTok{confusion.log}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  No Yes
+##        No  265  15
+##        Yes  86  35
+##                                           
+##                Accuracy : 0.7481          
+##                  95% CI : (0.7027, 0.7899)
+##     No Information Rate : 0.8753          
+##     P-Value [Acc > NIR] : 1               
+##                                           
+##                   Kappa : 0.2828          
+##                                           
+##  Mcnemar's Test P-Value : 3.278e-12       
+##                                           
+##             Sensitivity : 0.7550          
+##             Specificity : 0.7000          
+##          Pos Pred Value : 0.9464          
+##          Neg Pred Value : 0.2893          
+##              Prevalence : 0.8753          
+##          Detection Rate : 0.6608          
+##    Detection Prevalence : 0.6983          
+##       Balanced Accuracy : 0.7275          
+##                                           
+##        'Positive' Class : No              
+## 
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Let's compare the confusion matrix of the two models}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{confusion.rpart}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  No Yes
+##        No  335  14
+##        Yes  16  36
+##                                          
+##                Accuracy : 0.9252         
+##                  95% CI : (0.8949, 0.949)
+##     No Information Rate : 0.8753         
+##     P-Value [Acc > NIR] : 0.0008822      
+##                                          
+##                   Kappa : 0.663          
+##                                          
+##  Mcnemar's Test P-Value : 0.8551321      
+##                                          
+##             Sensitivity : 0.9544         
+##             Specificity : 0.7200         
+##          Pos Pred Value : 0.9599         
+##          Neg Pred Value : 0.6923         
+##              Prevalence : 0.8753         
+##          Detection Rate : 0.8354         
+##    Detection Prevalence : 0.8703         
+##       Balanced Accuracy : 0.8372         
+##                                          
+##        'Positive' Class : No             
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{confusion.log}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  No Yes
+##        No  265  15
+##        Yes  86  35
+##                                           
+##                Accuracy : 0.7481          
+##                  95% CI : (0.7027, 0.7899)
+##     No Information Rate : 0.8753          
+##     P-Value [Acc > NIR] : 1               
+##                                           
+##                   Kappa : 0.2828          
+##                                           
+##  Mcnemar's Test P-Value : 3.278e-12       
+##                                           
+##             Sensitivity : 0.7550          
+##             Specificity : 0.7000          
+##          Pos Pred Value : 0.9464          
+##          Neg Pred Value : 0.2893          
+##              Prevalence : 0.8753          
+##          Detection Rate : 0.6608          
+##    Detection Prevalence : 0.6983          
+##       Balanced Accuracy : 0.7275          
+##                                           
+##        'Positive' Class : No              
+## 
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{From the confusion matrix, altough the logistics regression has
+  a little bit lower False Negative but significantly higher False
+  Positives, so the better model s the rpart model}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  \textbf{Based on findings from the models in 3, explain and advise the
+  Telecom company management.}
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  **From the rpart fit*
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rpart.plot}\NormalTok{(tree.prune)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: labs do not fit even at cex 0.15, there may be some overplotting
+\end{verbatim}
+
+\includegraphics{cba_files/figure-latex/unnamed-chunk-31-1.pdf} *
+\emph{Use the variable importance to find the variables that improve the
+purity the most}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tree.prune}\OperatorTok{$}\NormalTok{variable.importance}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            Day.Minutes             Day.Charge Customer.Service.Calls 
+##              393.70784              381.51138              318.63396 
+##     International.Plan        Evening.Minutes         Evening.Charge 
+##              217.68570              188.71902              181.10422 
+##          Night.Minutes         Account.Length  International.Minutes 
+##              118.67113              110.01532              107.25461 
+##              Day.Calls    International.Calls           Night.Charge 
+##              102.94687              102.27088               99.03682 
+##            Night.Calls    Voice.Mail.Messages   International.Charge 
+##               97.90591               94.76885               82.25924 
+##          Evening.Calls        Voice.Mail.Plan 
+##               70.80340               66.97771
+\end{verbatim}
+
+\begin{itemize}
+\item
+  \emph{From the result, we see that the number of minutes talked during
+  the day, and the duration of the customer service calls, as well as
+  whether the customer is a international plan subscriber has the most
+  influence on the outcome}
+\item
+  \emph{We can also use the logistics regression result to detect how
+  some factors affect the odds}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(glm.fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = Churn ~ Account.Length + International.Plan + Voice.Mail.Plan + 
+##     Day.Minutes + Day.Calls + Evening.Calls + Evening.Charge + 
+##     Night.Minutes + Night.Calls + International.Minutes + International.Calls + 
+##     Customer.Service.Calls, family = binomial, data = churn.train.balanced)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.9079  -0.7554   0.1089   0.8470   2.4944  
+## 
+## Coefficients:
+##                          Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)            -7.2905743  0.5807884 -12.553  < 2e-16 ***
+## Account.Length          0.0010785  0.0011700   0.922 0.356643    
+## International.PlanYes   2.5825590  0.1587093  16.272  < 2e-16 ***
+## Voice.Mail.PlanYes     -0.9605876  0.1213572  -7.915 2.47e-15 ***
+## Day.Minutes             0.0183217  0.0009396  19.500  < 2e-16 ***
+## Day.Calls               0.0083948  0.0022777   3.686 0.000228 ***
+## Evening.Calls           0.0013971  0.0023253   0.601 0.547973    
+## Evening.Charge          0.0646626  0.0118900   5.438 5.38e-08 ***
+## Night.Minutes           0.0016916  0.0009890   1.710 0.087208 .  
+## Night.Calls            -0.0046730  0.0023925  -1.953 0.050799 .  
+## International.Minutes   0.0311205  0.0175630   1.772 0.076405 .  
+## International.Calls    -0.0464816  0.0201533  -2.306 0.021088 *  
+## Customer.Service.Calls  0.6954205  0.0368197  18.887  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 3791.5  on 2734  degrees of freedom
+## Residual deviance: 2662.0  on 2722  degrees of freedom
+##   (1 observation deleted due to missingness)
+## AIC: 2688
+## 
+## Number of Fisher Scoring iterations: 5
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{From the coefficients of the various factors, we do see account
+  lenghth, international plan subscription, number of minutes during the
+  day, amount of evening charges, and amount od night call durations, as
+  well as the international calls have a positive impact on the odds of
+  churn. A one unit increase in one of these factors, given the other
+  factors are constant, will increase the avergae odds of yes on churn.
+  In constrast, for attributes having negative coefficients, the
+  customer is a voice mail plan subscriber, the amound to night calls,
+  and the amount of international calls have a negative impact on the
+  outcome. That is, a one unit increase in one of these variables, given
+  the others are constant, will have a negative impact on the odds of
+  being Yes on churn on average.}
+\end{itemize}
+
+\hypertarget{part-c-advanced-concepts}{%
+\subsection{Part C: Advanced Concepts}\label{part-c-advanced-concepts}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  \textbf{The cross validation error in your optimal CART is reported in
+  the rpart package cp table. \emph{If the outcome variable is
+  continuous, this is fine. But if the outcome variable is categorical,
+  an important information is missing.} Explain the last two sentences
+  (in Bold) above.}
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Since regression tree utilizes mse as a metrics for test error,
+  but classification generally utilizes purity measures such as
+  gini/entropy. At times when regression tree will see an improvement in
+  a split beacuse of improvement in mse, the classification tree might
+  see no improvement because the purity stays the same}
+\end{itemize}
+
+6 \textbf{How did CART deal with the missing value(s) if any, in the
+dataset?}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{CART will find other X variables that resembles the current
+  best-splitting variables. rpart searches for ``surrogate'' X variables
+  for the best split at each node. This will help to prevent the
+  situation where a case has a missing value in the best primary split
+  and also missing in other surrogate variables}
+\end{itemize}
+
+\end{document}

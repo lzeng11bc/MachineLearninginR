@@ -1,0 +1,246 @@
+---
+title: "Computer Based Assessment"
+author: "Zeng Linghao"
+date: "October 15,2020"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Part A: Data Exploration and Prepartion
+1. **There are a few obvious data errors in the data. Conduct data exploration to identify the obvious data errors and correct the errors. Explain and justify your corrections. [You will use your corrected data in subsequent analysis.]**
+
+* *Read the data*
+```{r}
+setwd("~/Desktop/CBA/")
+churn<-read.csv(file="churn5.csv")
+```
+* *Do a quick summary of the data set*
+```{r}
+summary(churn)
+```
+
+* *Check all String data to see if it is binary*
+```{r}
+#Internation Plan
+sum(churn$International.Plan=="Yes" | churn$International.Plan=="No")
+#voice mail plan
+sum(churn$Voice.Mail.Plan=="Yes" | churn$Voice.Mail.Plan=="No")
+#churn mail plan
+sum(churn$Churn=="Yes" | churn$Churn=="No")
+```
+
+* *From the above result, it appears that Voice.Mail.Plan contains missing data*
+```{r}
+churn[(churn$Voice.Mail.Plan!="Yes" & churn$Voice.Mail.Plan!="No"),]
+```
+
+* *For row 1269, it appears that "N" is used instead of "No" for Voice.Mail.Plan for row 2001, it appears that there is a missing values, we will aplply NA instead*
+```{r}
+churn[1269,"Voice.Mail.Plan"]='No'
+churn[2001,"Voice.Mail.Plan"]=NA
+```
+
+* *Let's Turn our attention to the numerical data. First, let's check if all the numerical attributes contain only numerical values*
+```{r}
+churn.num<-churn[,c(1,2,5,6,7,8,9,10,11,12,13,14,15,16,17,18)]
+#check if all numeric coulumns contain only numeric numbers
+col.names<-names(churn.num)
+columns<-rep(0,16)
+for (i in 1:16){
+  columns[i]=is.numeric(churn.num[,col.names[i]])
+  print(col.names[i])
+  print(columns[i])
+}
+```
+
+* *In order to identify outliers, we can plot a scatter matrix and do a summary table*
+```{r}
+plot(churn.num)
+summary(churn.num)
+```
+
+* *From the scatter matrix, there is a significant outlier in international charge*
+```{r}
+plot(churn.num$International.Charge~churn.num$Customer)
+summary(churn.num$International.Charge)
+```
+
+* *We can apply the NA value to the outlier*
+```{r}
+churn[churn[,"International.Charge"]==301,]
+churn[65,"International.Charge"]=NA
+```
+
+* *Since customerID is not important, we omit that column*
+```{r}
+churn<-churn[,-1]
+```
+
+* *Finally, factor the string attributes*
+```{r}
+churn[,"Voice.Mail.Plan"]=as.factor(churn[,"Voice.Mail.Plan"])
+churn[,"International.Plan"]=as.factor(churn[,"International.Plan"])
+churn[,"Churn"]=as.factor(churn[,"Churn"])
+```
+
+
+2. **Create a summary table that displays the important information. Explain the findings.**
+* *From the summary table, we are able to get a sense of out overall statistics. Several things come into mind, first of all, only about 1/10 of the total records are subscribers of International.Plan. Out of the total Calls.Churn, only about 1/10 of the Calls.Churn are Yes. Moreover, we could compare the summary table of those who are subscribers and those who are non-subscribers. The International Plan subscribers among the total subscribers are significant more than those non-subscribers. However, mean Voice.Mail.Messages of the subscribers of are only half of the mean Voice.Mail.Mesaages of the non-subscribers. Among Dauy.Minutes of the subscribers, the mean is lower than that of the non-subscribers.*
+```{r}
+summary(churn)
+summary(churn[churn[,"Churn"]=="Yes",])
+summary(churn[churn[,"Churn"]=="No",])
+```
+
+## Part B: Models and Model Based Insight
+
+3. **Execute CART and another model of your choice taught in this module. Which model perform better? Explain.**
+* *Before Executing the model, we need to first do a train-test split*
+```{r}
+train<-sample(1:nrow(churn),nrow(churn)*0.8)
+test<--train
+```
+
+* *Use the previous generated train, and test row numbers to apply to the total data set*
+```{r}
+churn.train<-churn[train,]
+churn.test<-churn[test,]
+```
+
+* *We need to balance the response variables*
+```{r}
+sum(churn.train$Churn=="Yes")
+sum(churn.train$Churn=="No")
+```
+
+* *From the above code, we see the Yes and No are highly imbalanced. We need to balance the training set by duplicating the Yes so the ratio is 0.5*
+```{r}
+churn.train.yes<-churn.train[churn.train[,"Churn"]=="Yes",]
+churn.train.no<-churn.train[churn.train[,"Churn"]=="No",]
+chosen<-sample(seq(1:nrow(churn.train.yes)),size = nrow(churn.train.no),replace = TRUE)
+churn.train.balanced<-rbind(churn.train.yes[chosen,],churn.train.no)
+```
+
+### RPART Model
+
+* *First, use the train set to fid the model*
+```{r}
+library(rpart)
+tree.fit<-rpart(formula = Churn~.,data=churn.train.balanced,method = "class",control = rpart.control(minsplit = 2,cp=0))
+```
+
+* *Plot the resulting fit*
+```{r}
+library(rpart.plot)
+rpart.plot(tree.fit)
+```
+
+* *Plot the cp against the cross validated error and also use the cp table*
+```{r}
+plotcp(tree.fit)
+```
+```{r}
+printcp(tree.fit)
+```
+
+* *From the cp table and the grap, we choose a cp value in the 0.00054785 to 0.00045 range*
+```{r}
+tree.prune<-prune(tree.fit,cp=0.00054)
+```
+
+* *Get the cp table*
+```{r}
+printcp(tree.prune)
+```
+
+* *Plot the resulting tree*
+```{r}
+rpart.plot(tree.prune)
+```
+
+* *Do a confusion matrix on the test set*
+```{r}
+library(caret)
+pred<-predict(tree.prune,newdata = churn.test,type="class")
+confusion.rpart<-confusionMatrix(pred,churn.test$Churn)
+confusion.rpart
+```
+
+### Logistic Regression
+
+* *Fit the logistic regression model*
+```{r}
+glm.fit<-glm(Churn~Account.Length+International.Plan+Voice.Mail.Plan+Day.Minutes+Day.Calls+Evening.Calls+Evening.Charge+Night.Minutes+Night.Calls+International.Minutes+International.Calls+Customer.Service.Calls,data = churn.train.balanced,family = binomial)
+```
+
+* *See the result summary*
+```{r}
+summary(glm.fit)
+```
+
+* *Use VIF() from the car pacakge to detec multicolineairty, and leave out the variables one by one until the VIF scores for all variables are low*
+```{r}
+library(car)
+vif(glm.fit)
+```
+
+* **Plot the diagonsitic plot*
+```{r}
+par(mfrow=c(2,2))
+plot(glm.fit)
+```
+
+* *Use the model to make prediction on a test set. And make a confusion matrix from the prediction.*
+```{r}
+library(caret)
+glm.probs=predict(glm.fit,churn.test,type="response")
+glm.pred=rep("No",nrow(churn.test))
+glm.pred[glm.probs>.5]="Yes"
+confusion.log<-confusionMatrix(as.factor(glm.pred),churn.test$Churn)
+confusion.log
+```
+
+* *Let's compare the confusion matrix of the two models*
+```{r}
+confusion.rpart
+confusion.log
+```
+
+* *From the confusion matrix, altough the logistics regression has a little bit lower False Negative but significantly higher False Positives, so the better model s the rpart model*
+
+4. **Based on findings from the models in 3, explain and advise the Telecom company management.**
+
+* **From the rpart fit*
+```{r}
+rpart.plot(tree.prune)
+```
+
+* *Use the variable importance to find the variables that improve the purity the most*
+```{r}
+tree.prune$variable.importance
+```
+
+* *From the result, we see that the number of minutes talked during the day, and the duration of the customer service calls, as well as whether the customer is a international plan subscriber has the most influence on the outcome*
+
+* *We can also use the logistics regression result to detect how some factors affect the odds*
+```{r}
+summary(glm.fit)
+```
+
+* *From the coefficients of the various factors, we do see account lenghth, international plan subscription, number of minutes during the day, amount of evening charges, and amount od night call durations, as well as the international calls have a positive impact on the odds of churn. A one unit increase in one of these factors, given the other factors are constant, will increase the avergae odds of yes on churn. In constrast, for attributes having negative coefficients, the customer is a voice mail plan subscriber, the amound to night calls, and the amount of international calls have a negative impact on the outcome. That is, a one unit increase in one of these variables, given the others are constant, will have a negative impact on the odds of being Yes on churn on average.*
+
+## Part C: Advanced Concepts
+
+5. **The cross validation error in your optimal CART is reported in the rpart package cp table. *If the outcome variable is continuous, this is fine. But if the outcome variable is categorical, an important information is missing.* Explain the last two sentences (in Bold) above.**
+
+* *Since regression tree utilizes mse as a metrics for test error, but classification generally utilizes purity measures such as gini/entropy. At times when regression tree will see an improvement in a split beacuse of improvement in mse, the classification tree might see no improvement because the purity stays the same.AS a result, regression will make a split but classification won't. Even if the cross validated error is lower for regression compared with classification, the prediction based on class will be the same.*
+
+6. **How did CART deal with the missing value(s) if any, in the dataset?**
+ 
+* *rpart package will try to find 5 X variables that will result in the best split at each node as a back up plan.rpart will rank them based on the best primary split. If there is a missing variable, rpart will use the surroagte variables so that the split could be made.* 
+
